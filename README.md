@@ -1,5 +1,3 @@
-# 🎬 Movie Library Site
-
 **Movie Library Site** is a web application built with ASP.NET Core for managing a movie collection. It uses Entity Framework Core with PostgreSQL to handle data persistence and supports full CRUD operations for movies and genres.
 
 ⚙️ **Features**  
