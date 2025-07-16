@@ -1,0 +1,6 @@
+@ONLSHOP_ASP.NET_HostAddress = http://localhost:5238
+
+GET {{ONLSHOP_ASP.NET_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

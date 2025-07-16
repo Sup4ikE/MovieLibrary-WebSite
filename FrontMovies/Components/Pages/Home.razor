@@ -1,0 +1,53 @@
+﻿@page "/"
+@inject MoviesClient Client
+
+<PageTitle>My Movies Database!</PageTitle>
+
+<div class="row">
+    <h1 class="text-center text-primary">My Movies</h1>
+    @if(movies is null)
+    {
+        <p class="text-center">Loading...</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach(var movie in movies)
+            {
+                <div class="card border-info text-center">
+                    <div class="card-header">
+                        <h5 class="card-title">@movie.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@movie.Genre?.Name</p>
+                        <p class="card-text">@movie.Price.ToString("C")</p>
+                        <p class="card-text">@movie.ReleaseDate</p>
+                        <a class="btn btn-info" role="button" href="@MovieUrl(movie.Id)">
+                            <i class="bi bi-pencil"></i>
+                        </a> 
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(movie)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <DeleteMovie Movie="@movie" />
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code{
+    private Movie[]? movies;
+
+    protected override async Task OnInitializedAsync() // This method is called when the component is initialized
+    {
+        movies = await Client.GetMoviesAsync();
+    }
+
+    private static string MovieUrl(int id) => $"addeditMovie/{id}";
+
+    private string GetDeleteModalId(Movie movie)
+    {
+        return $"#{DeleteMovie.GetModalId(movie)}"; // This is a static method from the DeleteMovie component"
+    }
+}

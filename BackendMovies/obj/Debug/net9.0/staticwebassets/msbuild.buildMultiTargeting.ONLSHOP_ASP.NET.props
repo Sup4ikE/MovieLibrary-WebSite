@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/ONLSHOP_ASP.NET.props" />
+</Project>

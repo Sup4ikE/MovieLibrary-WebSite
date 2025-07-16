@@ -1,0 +1,48 @@
+@inject MoviesClient Client
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+
+<!-- Modal -->
+<div class="modal fade" id="@GetModalId(Movie)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">@title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" @onclick="@ConfirmDeleteAsync">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Movie? Movie { get; set; }
+
+    private string title = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        title = $"Delete Movie: {Movie?.Name}";
+    }
+
+    public static string GetModalId(Movie? movie)
+    {
+        ArgumentNullException.ThrowIfNull(movie);
+        return $"deleteModal-{movie?.Id}";
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        ArgumentNullException.ThrowIfNull(Movie);
+        await Client.DeleteMovieAsync(Movie.Id);
+        NavigationManager.NavigateTo("/");
+    }
+
+
+}
