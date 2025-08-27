@@ -13,7 +13,7 @@
 
 🧰 **Technologies Used**  
 ---  
-- C# (.NET 8)  
+- C# (.NET 9)  
 - ASP.NET Core (Blazor)  
 - Entity Framework Core  
 - PostgreSQL  
